@@ -41,7 +41,27 @@ while True:
 ```
 To stop, press ctrl+c.
 
-## Step 4. Exit REPL and Unplug Safely
+## Step 4. Store the LED Blink as ```main.py``` (Optional)
+To make the LED always blink after boot, store the code as ```main.py```.
+1. Paste the following into REPL:
+```
+code = """
+import machine, utime
+
+led = machine.Pin("LED", machine.Pin.OUT)
+
+while True:
+    led.toggle()
+    utime.sleep(0.5)
+"""
+```
+2. Paste the following and hit enter:
+```
+with open("main.py", "w") as f:
+    f.write(code)
+```
+
+## Step 5. Exit REPL and Unplug Safely
 1. To exit REPL, in minicom, press:
 ```
 ctrl-A Q
