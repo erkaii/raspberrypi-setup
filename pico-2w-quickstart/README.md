@@ -1,4 +1,4 @@
-# Pico 2W Setup
+# Pico 2W Setup Quickstart
 For official documentation, see [Getting started with Raspberry Pi Pico-series Microcontrollers](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf).
 
 ## Requirements
