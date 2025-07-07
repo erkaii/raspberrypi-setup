@@ -81,7 +81,7 @@ blink.uf2
 1. Put Pico 2 W into BOOTSEL mode:
 	- Hold down **BOOTSEL** button
 	- Connect the Pico 2 W with the Ubuntu machine using the USB cable
-	- A drive called ```RP2350``` should appear at ```/media/$USER/RP2350```.
+	- A drive called ```RP2350``` should appear at ```/media/$USER/RP2350```
 2. Copy the firmware (the ```.uf2``` file from the previous step) into the 
 ```RP2350``` folder, the drive should automatically unmount, and Pico 2 W should 
 reboot.

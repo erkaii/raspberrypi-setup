@@ -12,7 +12,7 @@ For official documentation, see [Getting started with Raspberry Pi Pico-series M
 2. Put Pico 2 W into BOOTSEL mode:
 	- Hold down **BOOTSEL** button
 	- Connect the Pico 2 W with the Ubuntu machine using the USB cable
-	- A drive called ```RP2350``` should appear at ```/media/$USER/RP2350```.
+	- A drive called ```RP2350``` should appear at ```/media/$USER/RP2350```
 3. Copy the downloaded firmware (a ```.uf2``` file) into the ```RP2350``` folder,
 the drive should automatically unmount, and Pico 2 W should reboot.
 
