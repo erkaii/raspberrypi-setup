@@ -42,7 +42,7 @@ Follow the [official doc](https://www.raspberrypi.com/documentation/microcontrol
 An example:
 ![connection](connection.png)
 
-## Step 4. Debug with OpenOCD
+## Step 4. GDB Connection with OpenOCD
 As of July 2025, openocd needs to be built from source in order to include the
 support for rp2350 which is used by Pico 2 W. Make sure this is done in Step 2.
 
@@ -61,17 +61,85 @@ connection to the target program (by default openocd connects at port 3333).
 gdb-multiarch <path-to-elf-file> -ex "target remote :3333"
 ```
 
-3. Right after connection, the target (Pico 2 W) immediately pauses due to the 
-design of openocd. Type the command below to release the halt (it will not 
-run yet the until next ```continue``` command)
+(**Not needed!!** But good to know) Right after connection, the target (Pico 2 W) 
+immediately pauses due to the design of openocd. GDB command ```monitor reset init```
+can be used to release the halt.
+
+## Step 5. Collect the Trace
+The [trace.gdb](trace.gdb) file is the key to collect the ETM trace. Thanks to 
+[@czietz](https://github.com/czietz) who open sourced this splendid debugging
+script. The actual script locates at [here](https://github.com/czietz/etm-trace-rp2350/blob/master/trace.gdb), 
+the one used in this documentation is simply its copy made for the commit 
+```15a1e86```.
+
+1. In the **GDB terminal**, load the tracing script with the following command 
+(make sure the path to ```trace.gdb``` is correct!): 
 ```
-(gdb) monitor reset init
+(gdb) source trace.gdb
 ```
 
+2. Type the following commands to collect the trace.
+```
+(gdb) trc_setup 0x20040000 8192 12 0 1 0
+(gdb) trc_setup 
+(gdb) trc_start 1
+(gdb) trc_save ~/endless.bin
+```
 
+## Step 6. Parse the Trace with ```ptm2human```
+A tool named ```ptm2human``` can be used to analyze the trace data. [@czietz](https://github.com/czietz) 
+provided a link to his fork of [ptm2human](https://github.com/czietz/ptm2human/), 
+which works well with the trace collected for Cortex-M33.
 
+1. Download and build the ```ptm2human``` tool:
+```
+git clone https://github.com/czietz/ptm2human.git
+cd ptm2human
+./autogen.sh
+./configure
+make
+```
 
+2. Use the ```ptm2human``` program to parse the collected trace data:
+```
+./ptm2human -e -n -i ~/endless.bin
+```
 
-
-
-
+A snippet of the parsed trace looks like the following:
+```
+Reading /home/erkaii/endless.bin
+Syncing the trace stream...
+Decoding the trace stream...
+TraceInfo - Cycle count disabled,
+            Tracing of conditional non-branch instruction disabled,
+            No explicit tracing of load instructions,
+            No explicit tracing of store instructions,
+            p0_key = 0x0,
+            curr_spec_depth = 0,
+            cc_threshold = 0x0
+ATOM - N
+Commit - 1
+Context - Context ID = 0x0,
+          VMID = 0x0,
+          Exception level = EL0,
+          Security = S,
+          32-bit instruction
+Address - Instruction address 0x000000001000137c, Instruction set Aarch32 (ARM)
+ATOM - N
+Commit - 1
+ATOM - E
+Commit - 1
+Address - Instruction address 0x0000000010001356, Instruction set Aarch32 (ARM)
+ATOM - N
+Commit - 1
+ATOM - N
+Commit - 1
+ATOM - N
+Commit - 1
+ATOM - N
+Commit - 1
+ATOM - N
+Commit - 1
+ATOM - E
+Commit - 1
+```
