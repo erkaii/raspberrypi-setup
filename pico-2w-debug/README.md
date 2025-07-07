@@ -35,7 +35,8 @@ cd blink
 ```
 cmake_minimum_required(VERSION 3.13)
 
-include(pico_sdk_import.cmake)
+set(PICO_SDK_PATH "$ENV{PICO_SDK_PATH}")
+include(${PICO_SDK_PATH}/external/pico_sdk_import.cmake)
 
 project(blink_project)
 
@@ -73,7 +74,7 @@ int main() {
 ```
 mkdir build
 cd build 
-cmake ..
+cmake .. -DPICO_BOARD=pico2
 make
 ```
 This should produce these files under the ```build``` folder:
@@ -83,11 +84,11 @@ blink.uf2
 ```
 
 ## Step 4. Flash Firmware
-2. Put Pico 2 W into BOOTSEL mode:
+1. Put Pico 2 W into BOOTSEL mode:
 	- Hold down **BOOTSEL** button
 	- Connect the Pico 2 W with the Ubuntu machine using the USB cable
 	- A drive called ```RP2350``` should appear at ```/media/$USER/RP2350```.
-3. Copy the firmware (the ```.uf2``` file from the previous step) into the 
+2. Copy the firmware (the ```.uf2``` file from the previous step) into the 
 ```RP2350``` folder, the drive should automatically unmount, and Pico 2 W should 
 reboot.
 
