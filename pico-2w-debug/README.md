@@ -15,6 +15,7 @@ sudo apt install -y git cmake build-essential gcc-arm-none-eabi libnewlib-arm-no
 ```
 
 ## Step 2. Get the Pico SDK and Examples
+Note that an environment variable ```PICO_SDK_PATH``` is set for **only the current shell session**. This environment variable is used in later steps!
 ```
 mkdir -p ~/pico
 cd ~/pico
@@ -55,17 +56,16 @@ pico_add_extra_outputs(blink)
 ```
 3. Create a simple source code ```blink.c``` file with the content below under the project directory (*~/pico/blink* in this example).
 ```
-#include "pico/stdlib.h"
+#define LED_PIN 29
 
 int main() {
-    const uint LED_PIN = PICO_DEFAULT_LED_PIN;
     gpio_init(LED_PIN);
     gpio_set_dir(LED_PIN, GPIO_OUT);
 
-    while (true) {
-        gpio_put(LED_PIN, 1);
+    while (1) {
+        gpio_put(LED_PIN, 1); // turn ON
         sleep_ms(500);
-        gpio_put(LED_PIN, 0);
+        gpio_put(LED_PIN, 0); // turn OFF
         sleep_ms(500);
     }
 }
@@ -74,7 +74,13 @@ int main() {
 ```
 mkdir build
 cd build 
-cmake .. -DPICO_BOARD=pico2 -DPICO_SDK_PATH=$PICO_SDK_PATH -DCMAKE_C_COMPILER=arm-none-eabi-gcc -DCMAKE_CXX_COMPILER=arm-none-eabi-g++ -DCMAKE_ASM_COMPILER=arm-none-eabi-gcc
+cmake .. \
+  -DPICO_BOARD=pico2 \
+  -DPICO_PLATFORM=rp2350 \
+  -DPICO_SDK_PATH=$PICO_SDK_PATH \
+  -DCMAKE_C_COMPILER=/usr/bin/arm-none-eabi-gcc \
+  -DCMAKE_CXX_COMPILER=/usr/bin/arm-none-eabi-g++ \
+  -DCMAKE_ASM_COMPILER=/usr/bin/arm-none-eabi-gcc 
  
 make
 ```
