@@ -66,7 +66,8 @@ cmake .. \
   -DPICO_SDK_PATH=$PICO_SDK_PATH \
   -DCMAKE_C_COMPILER=/usr/bin/arm-none-eabi-gcc \
   -DCMAKE_CXX_COMPILER=/usr/bin/arm-none-eabi-g++ \
-  -DCMAKE_ASM_COMPILER=/usr/bin/arm-none-eabi-gcc 
+  -DCMAKE_ASM_COMPILER=/usr/bin/arm-none-eabi-gcc \
+  -DDEBUG_ON_PICO=ON
  
 make -j$(nproc)
 ```
