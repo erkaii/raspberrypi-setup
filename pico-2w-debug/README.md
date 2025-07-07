@@ -36,7 +36,6 @@ cd blink
 ```
 cmake_minimum_required(VERSION 3.13)
 
-set(PICO_SDK_PATH "$ENV{PICO_SDK_PATH}")
 include(${PICO_SDK_PATH}/external/pico_sdk_import.cmake)
 
 project(blink_project)
@@ -49,35 +48,20 @@ add_executable(blink
 
 target_link_libraries(blink pico_stdlib)
 
-pico_enable_stdio_usb(blink 1)
-pico_enable_stdio_uart(blink 0)
+if (PICO_CYW43_SUPPORTED)
+    target_link_libraries(blink pico_cyw43_arch_none)
+endif()
 
 pico_add_extra_outputs(blink)
 ```
-3. Create a simple source code ```blink.c``` file with the content below under the project directory (*~/pico/blink* in this example).
-```
-#include "pico/stdlib.h"
+3. Create an empty source code ```blink.c``` file under the project directory (*~/pico/blink* in this example). Then copy the code from [this file](blink.c) into it. Note that the source code used here is simply copied from the official [example](https://github.com/raspberrypi/pico-examples/blob/master/blink/blink.c) repo.
 
-#define LED_PIN 29
-
-int main() {
-    gpio_init(LED_PIN);
-    gpio_set_dir(LED_PIN, GPIO_OUT);
-
-    while (1) {
-        gpio_put(LED_PIN, 1); // turn ON
-        sleep_ms(500);
-        gpio_put(LED_PIN, 0); // turn OFF
-        sleep_ms(500);
-    }
-}
-```
 4. Build the project. Again, do this under the project directory (*~/pico/blink* in this example).
 ```
 mkdir build
 cd build 
 cmake .. \
-  -DPICO_BOARD=pico2 \
+  -DPICO_BOARD=pico2_w \
   -DPICO_PLATFORM=rp2350 \
   -DPICO_SDK_PATH=$PICO_SDK_PATH \
   -DCMAKE_C_COMPILER=/usr/bin/arm-none-eabi-gcc \
