@@ -56,6 +56,8 @@ pico_add_extra_outputs(blink)
 ```
 3. Create a simple source code ```blink.c``` file with the content below under the project directory (*~/pico/blink* in this example).
 ```
+#include "pico/stdlib.h"
+
 #define LED_PIN 29
 
 int main() {
@@ -82,7 +84,7 @@ cmake .. \
   -DCMAKE_CXX_COMPILER=/usr/bin/arm-none-eabi-g++ \
   -DCMAKE_ASM_COMPILER=/usr/bin/arm-none-eabi-gcc 
  
-make
+make -j$(nproc)
 ```
 This should produce these files under the ```build``` folder:
 ```
