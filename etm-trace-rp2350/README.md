@@ -53,6 +53,23 @@ assumes the openocd is installed via the OS rather than built from source.
 sudo src/openocd -s tcl -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 5000"
 ```
 
+2. **Open another terminal**, locate the ```.elf``` file built in Step 1. In the 
+example, this file is called ```blink.elf```, launch a gdb session targeting this
+```.elf``` file. Note that the following command also performs a remote 
+connection to the target program (by default openocd connects at port 3333).
+```
+gdb-multiarch <path-to-elf-file> -ex "target remote :3333"
+```
+
+3. Right after connection, the target (Pico 2 W) immediately pauses due to the 
+design of openocd. Type the command below to release the halt (it will not 
+run yet the until next ```continue``` command)
+```
+(gdb) monitor reset init
+```
+
+
+
 
 
 
