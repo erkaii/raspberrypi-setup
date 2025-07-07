@@ -32,15 +32,15 @@ make -j$(nproc)
 sudo make install
 ```
 
-3. Connect Debug Probe 
+## 3. Connect Debug Probe 
 Follow the [official doc](https://www.raspberrypi.com/documentation/microcontrollers/debug-probe.html#serial-connections) to 
-* Connect Raspberry Pi Debug Probe with Pico 2 W using 3-pin JST-SH cables
-* Connect Raspberry Pi Debug Probe to Ubuntu machine with an USB cable
-* Power Pico 2 W with an USB cable
+1. Connect Raspberry Pi Debug Probe with Pico 2 W using 3-pin JST-SH cables
+2. Connect Raspberry Pi Debug Probe to Ubuntu machine with an USB cable
+3. Power Pico 2 W with an USB cable
 An example:
 ![connection](connection.png)
 
-4. Debug with OpenOCD
+## 4. Debug with OpenOCD
 As of July 2025, openocd needs to be built from source in order to include the
 support for rp2350 which is used by Pico 2 W. Make sure this is done in Step 2.
 
