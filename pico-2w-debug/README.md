@@ -74,7 +74,8 @@ int main() {
 ```
 mkdir build
 cd build 
-cmake .. -DPICO_BOARD=pico2
+cmake .. -DPICO_BOARD=pico2 -DPICO_SDK_PATH=$PICO_SDK_PATH -DCMAKE_C_COMPILER=arm-none-eabi-gcc -DCMAKE_CXX_COMPILER=arm-none-eabi-g++ -DCMAKE_ASM_COMPILER=arm-none-eabi-gcc
+ 
 make
 ```
 This should produce these files under the ```build``` folder:
