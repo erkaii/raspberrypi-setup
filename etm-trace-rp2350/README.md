@@ -7,7 +7,7 @@ repo.
 * Raspberry Pi Debug Probe
 * Ubuntu machine 
 * USB cables for Pico and Debug Probe
-* 3-pin JST-SH cable (usually comes with the debug probe)
+* 3-pin JST-SH cables (usually comes with the debug probe)
 
 ## 1. Flash Firmware for Pico 2 W
 Follow the [pico 2w setup](/pico-2w).
@@ -33,13 +33,19 @@ sudo make install
 ```
 
 3. Connect Debug Probe 
+Follow the [official doc](https://www.raspberrypi.com/documentation/microcontrollers/debug-probe.html#serial-connections) to 
+* Connect Raspberry Pi Debug Probe with Pico 2 W using 3-pin JST-SH cables
+* Connect Raspberry Pi Debug Probe to Ubuntu machine with an USB cable
+* Power Pico 2 W with an USB cable
+An example:
+![connection](connection.png)
 
 4. Debug with OpenOCD
 As of July 2025, openocd needs to be built from source in order to include the
 support for rp2350 which is used by Pico 2 W. Make sure this is done in Step 2.
 
 1. Go to the openocd directory, run the command below. 
-The openocd command suggested by the [official doc](https://datasheets.raspberrypi.com/pico/getting-started-with-pico.pdf) is slightly different, since 
+The openocd command suggested by the [official doc](https://www.raspberrypi.com/documentation/microcontrollers/debug-probe.html#standalone-program-upload) is slightly different, since 
 the official doc assumes the openocd to be installed system-wide.
 ```
 sudo src/openocd -s tcl -f interface/cmsis-dap.cfg -f target/rp2350.cfg -c "adapter speed 5000"
