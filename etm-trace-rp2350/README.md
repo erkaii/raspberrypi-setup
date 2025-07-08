@@ -83,7 +83,7 @@ the one used in this documentation is simply its copy made for the commit
 (gdb) trc_setup 0x20040000 8192 12 0 1 0
 (gdb) trc_setup 
 (gdb) trc_start 1
-(gdb) trc_save ~/endless.bin
+(gdb) trc_save ~/trace.bin
 ```
 
 ## Step 6. Parse the Trace with ```ptm2human```
@@ -102,12 +102,12 @@ make
 
 2. Use the ```ptm2human``` program to parse the collected trace data:
 ```
-./ptm2human -e -n -i ~/endless.bin
+./ptm2human -e -n -i ~/trace.bin
 ```
 
 A snippet of the parsed trace looks like the following:
 ```
-Reading /home/erkaii/endless.bin
+Reading /home/erkaii/trace.bin
 Syncing the trace stream...
 Decoding the trace stream...
 TraceInfo - Cycle count disabled,
@@ -143,3 +143,7 @@ Commit - 1
 ATOM - E
 Commit - 1
 ```
+
+## Next Step
+See [Trace Analysis](trace_analysis.md). 
+
