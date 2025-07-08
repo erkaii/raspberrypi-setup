@@ -71,12 +71,12 @@ cmake .. \
  
 make -j$(nproc)
 ```
-This should produce these files under the ```build``` folder:
+The build should produce the following files under the ```build``` folder:
 ```
 blink.elf
 blink.uf2
 ```
-
+Sample files for both are provided in this directory for later use.
 ## Step 4. Flash Firmware
 1. Put Pico 2 W into BOOTSEL mode:
 	- Hold down **BOOTSEL** button
