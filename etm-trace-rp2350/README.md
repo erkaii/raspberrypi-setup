@@ -70,8 +70,9 @@ the halt (See next step). Note that running the command will not resume the exec
 The [trace.gdb](trace.gdb) file is the key to collect the ETM trace. Thanks to 
 [@czietz](https://github.com/czietz) who open sourced this splendid debugging
 script. The actual script locates at [here](https://github.com/czietz/etm-trace-rp2350/blob/master/trace.gdb), 
-the one used in this documentation is simply its copy made for the commit 
-```15a1e86```.
+the one used by this documentation is simply its copy made for the commit 
+```15a1e86```. (2025/07/15: The trace.gdb file used by this documentation has
+been slightly modified to print more info about the ETM device.)
 
 1. In the **GDB terminal**, load the tracing script with the following command 
 (make sure the path to ```trace.gdb``` is correct!): 

@@ -123,6 +123,9 @@ define trc_start
 
   ## stop ETM if it was running
   set $trc__etm = 0xe0041000
+  # Print info about the ETM device
+  printf "Device ID: 0x%08X\n", {long}($trc__etm+0xfc8)
+  printf "Device Type: 0x%08X\n", {long}($trc__etm+0xfcc)
   # trcprgctlr = 0: stop the tracing
   set {long}($trc__etm+0x004) = 0
   # wait until trcstatr.idle is set
