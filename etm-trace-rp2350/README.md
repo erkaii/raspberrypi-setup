@@ -15,7 +15,7 @@ Some related discussion can be found in this [forum post](https://forums.raspber
 Follow the [pico 2w debugging setup](/pico-2w-debug).
 
 ## Step 2. Install OpenOCD on Ubuntu
-As of July 2025, the official openocd version 0.12.0 does not support rp2350 
+Up to July 2025, the official openocd version 0.12.0 does not support rp2350 
 configuration automatically. Since Pico 2 W features rp2350, download the latest
 openocd from github and install it.
 
@@ -43,7 +43,7 @@ An example:
 ![connection](connection.png)
 
 ## Step 4. GDB Connection with OpenOCD
-As of July 2025, openocd needs to be built from source in order to include the
+Up to July 2025, openocd needs to be built from source in order to include the
 support for rp2350 which is used by Pico 2 W. Make sure this is done in Step 2.
 
 1. **Go to the openocd directory**, then run the command below. 
